@@ -1,0 +1,61 @@
+##############################################################################
+# BL4S - Bragg Peak in Heavy Water Mixtures
+# 150 MeV Proton Beam into 20x20x30 cm target
+##############################################################################
+
+# ============================================================
+# STEP 1 - PHYSICS
+# ============================================================
+physics QGSP_BIC_HP
+
+# ============================================================
+# STEP 2 - MATERIAL DEFINITIONS
+# ============================================================
+
+# Define the basic atoms
+material DeuteriumAtom Z=1 A=2.014 density=0.162
+material OxygenAtom Z=8 A=15.999 density=0.00143
+
+# Build Heavy Water (D2O) using MASS FRACTIONS
+# Molecular weight of D2O = (2 * 2.014) + 15.999 = 20.027
+# Mass fraction of D = 4.028 / 20.027 = 0.2011
+# Mass fraction of O = 15.999 / 20.027 = 0.7989
+material HeavyWater density=1.105 DeuteriumAtom,0.2011 OxygenAtom,0.7989
+
+# Define Mixtures
+material Mix0 G4_WATER,1.0 density=1.000
+material Mix25 HeavyWater,0.25 G4_WATER,0.75 density=1.026
+material Mix50 HeavyWater,0.50 G4_WATER,0.50 density=1.053
+material Mix75 HeavyWater,0.75 G4_WATER,0.25 density=1.079
+material Mix100 HeavyWater,1.0 density=1.105
+
+# Set active material to Mix0 (0% D2O)
+param MAT=Mix25
+
+# ============================================================
+# STEP 3 - BEAM PARAMETERS
+# ============================================================
+param KE=125
+param MASS=938.272
+param P=sqrt($KE*$KE+2.0*$KE*$MASS)
+
+# 100k events for high-precision results
+beam gaussian particle=proton nEvents=100000 meanMomentum=$P \
+     beamZ=-10 sigmaP=0 sigmaX=5 sigmaY=5 sigmaXp=0.002 sigmaYp=0.002
+     
+# ============================================================
+# STEP 4 - TARGET GEOMETRY
+# ============================================================
+# maxStep=0.1 forces the calculation frequency needed for 1mm slices
+box TargetSlice width=200 height=200 length=1 material=$MAT color=0,0.5,1 maxStep=0.1
+
+group TargetGroup radius=0
+    place TargetSlice copies=300 rename=Slice#
+endgroup
+
+place TargetGroup z=150
+
+# ============================================================
+# STEP 5 - DATA OUTPUT
+# ============================================================
+totalenergy volumes=Slice* filename=BraggPeak_Conc25.txt
