@@ -1,0 +1,1361 @@
+G4BL_DIR=C:\Program Files\Muons, Inc\G4beamline
+G4LEDATA=C:\Geant4Data/G4EMLOW8.0
+G4ENSDFSTATEDATA=C:\Geant4Data/G4ENSDFSTATE2.3
+G4NEUTRONHPDATA=C:\Geant4Data/G4NDL4.6
+G4PARTICLEXSDATA=C:\Geant4Data/G4PARTICLEXS4.0
+G4LEVELGAMMADATA=C:\Geant4Data/PhotonEvaporation5.7
+G4RADIOACTIVEDATA=C:\Geant4Data/RadioactiveDecay5.6
+G4beamline Process ID 28960
+
+*************************************************************
+ g4beamline version: 3.08                        (Oct  8 2022)
+                      Copyright : Tom Roberts, Muons, Inc.
+                        License : Gnu Public License
+                            WWW : http://g4beamline.muonsinc.com
+**************************************************************
+ Geant4 version Name: geant4-11-00-patch-03 [MT]   (16-September-2022)
+                       Copyright : Geant4 Collaboration
+                      References : NIM A 506 (2003), 250-303
+                                 : IEEE-TNS 53 (2006), 270-278
+                                 : NIM A 835 (2016), 186-225
+                             WWW : http://geant4.org/
+**************************************************************
+
+geometry                   nPoints=100 printGeometry=0 visual=0
+                           tolerance=0.002
+G4PhysListFactory::GetReferencePhysList <QGSP_BIC_HP>  EMoption= 0
+<<< Geant4 Physics List simulation engine: QGSP_BIC_HP
+
+
+physics      QGSP_BIC_HP   disable= inactivate= deactivate= doStochastics=1
+                           fluct=1 minRangeCut=1 list=0 gammaToMuPair=0
+                           spinTracking=0 synchrotronRadiation=0
+                           synchrotronRadiationMuon=0 maxTime=1e+06
+material DeuteriumAtom Z=1.00 A=2.01
+                density=0.162 temperature=273 pressure=1.0
+material OxygenAtom Z=8.00 A=16.00
+                density=0.001 temperature=273 pressure=1.0
+material HeavyWater Mixture: 0.20*DeuteriumAtom+0.80*OxygenAtom
+                density=1.105 temperature=273 pressure=1.0
+material Mix0   Mixture: 1.00*G4_WATER
+                density=1.000 temperature=273 pressure=1.0
+material Mix25  Mixture: 0.25*HeavyWater+0.75*G4_WATER
+                density=1.026 temperature=273 pressure=1.0
+material Mix50  Mixture: 0.50*HeavyWater+0.50*G4_WATER
+                density=1.053 temperature=273 pressure=1.0
+material Mix75  Mixture: 0.75*HeavyWater+0.25*G4_WATER
+                density=1.079 temperature=273 pressure=1.0
+material Mix100 Mixture: 1.00*HeavyWater
+                density=1.105 temperature=273 pressure=1.0
+param        MAT           Mix75
+param        KE            125
+param        MASS          938.272
+param        P             500.19296
+beam    GAUSSIAN particle=proton nEvents=100000 firstEvent=-1 lastEvent=2147483647 beamX=0.0 beamY=0.0 beamZ=-10.0 maxR=1000000.0 
+		meanMomentum=500.2 weight=1.000000 
+		sigmaX=5.0 sigmaY=5.0 sigmaZ=0.0 sigmaXp=0.00200 sigmaYp=0.00200 
+		sigmaP=0.0 sigmaT=0.000 meanXp=0.00000 meanYp=0.00000 meanT=0.000 
+box          TargetSlice   height=200 width=200 length=1 maxStep=0.1
+                           material=Mix75 color=0,0.5,1 kill=0
+group        TargetGroup   length=0 width=0 height=0 radius=0 material=Vacuum
+                           color= maxStep=100
+**************************************************************************
+*** G4Exception: No rename
+***    severity: Warning
+***   issued by: place command
+*** description: Multiple placements of the enclosing group will create multiple objects with identical names.
+**************************************************************************
+  place TargetSlice copies=300 sequentially along z; rename='Slice#'
+endgroup TargetGroup length=300.0 width=200.0 height=200.0
+place   TargetGroup copies=1 x=0.0 y=0.0 z=150.0 
+totalenergy                volumes=Slice* ancestors=0 enclosing=0
+                           filename=BraggPeak_Conc75.txt
+                           file=BraggPeak_Conc75.txt verbose=0
+
+World size (before incrementing by 201.357 mm): 200.0 H  200.0 W  600.0 L
+
+PARAMETERS:
+             KE=125
+           MASS=938.272
+            MAT=Mix75
+              P=500.19296
+            Zcl=300
+     deltaChord=3.0
+deltaIntersection=0.1
+   deltaOneStep=0.01
+         epsMax=0.05
+         epsMin=2.5e-7
+ eventTimeLimit=30
+    fieldVoxels=200,200,200
+      histoFile=g4beamline
+    histoUpdate=0
+        maxStep=100.0
+        minStep=0.01
+ steppingFormat=N GLOBAL CL KE STEP VOL PROCESS
+steppingVerbose=0
+         viewer=none
+ wallClockLimit=-1
+  worldMaterial=Vacuum
+     zTolerance=2.0
+BLGroup::Construct TargetGroup parent= relZ=150.0 globZ=0.0 length=300.0
+	zmin=-150.0 zmax=150.0 radius=100.0
+Checking overlaps for volume TargetGroup:0 (G4Tubs) ... OK! 
+	Parent pos=0.0,0.0,0.0 Relative pos=0.0,0.0,150.0 Global pos=0.0,0.0,150.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice1:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-96.723,98.8697,-149) by 3.83132 cm  (max of 237 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice1 parent= relZ=-149.5 globZ=0.5
+	zmin=0.0 zmax=1.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice2:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (99.5195,-98.1761,-148) by 3.97951 cm  (max of 249 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice2 parent= relZ=-148.5 globZ=1.5
+	zmin=1.0 zmax=2.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice3:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-97.6974,-97.9563,-148) by 3.83482 cm  (max of 204 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice3 parent= relZ=-147.5 globZ=2.5
+	zmin=2.0 zmax=3.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice4:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (99.9726,96.4845,-146) by 3.8938 cm  (max of 192 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice4 parent= relZ=-146.5 globZ=3.5
+	zmin=3.0 zmax=4.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice5:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (99.764,-100,-145.045) by 4.12546 cm  (max of 231 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice5 parent= relZ=-145.5 globZ=4.5
+	zmin=4.0 zmax=5.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice6:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-96.0348,96.439,-145) by 3.60998 cm  (max of 212 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice6 parent= relZ=-144.5 globZ=5.5
+	zmin=5.0 zmax=6.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice7:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (100,-98.2181,-143.811) by 4.0167 cm  (max of 241 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice7 parent= relZ=-143.5 globZ=6.5
+	zmin=6.0 zmax=7.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice8:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (97.3984,97.1556,-143) by 3.75705 cm  (max of 233 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice8 parent= relZ=-142.5 globZ=7.5
+	zmin=7.0 zmax=8.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice9:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (100,98.9336,-141.797) by 4.06693 cm  (max of 213 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+**************************************************************************
+BLCMDbox::Construct Slice9 parent= relZ=-141.5 globZ=8.5
+	zmin=8.0 zmax=9.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice10:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (99.8519,-95.4285,-141) by 3.81195 cm  (max of 217 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice10 parent= relZ=-140.5 globZ=9.5
+	zmin=9.0 zmax=10.0
+BLCMDbox::Construct Slice11 parent= relZ=-139.5 globZ=10.5
+	zmin=10.0 zmax=11.0
+BLCMDbox::Construct Slice12 parent= relZ=-138.5 globZ=11.5
+	zmin=11.0 zmax=12.0
+BLCMDbox::Construct Slice13 parent= relZ=-137.5 globZ=12.5
+	zmin=12.0 zmax=13.0
+BLCMDbox::Construct Slice14 parent= relZ=-136.5 globZ=13.5
+	zmin=13.0 zmax=14.0
+BLCMDbox::Construct Slice15 parent= relZ=-135.5 globZ=14.5
+	zmin=14.0 zmax=15.0
+BLCMDbox::Construct Slice16 parent= relZ=-134.5 globZ=15.5
+	zmin=15.0 zmax=16.0
+BLCMDbox::Construct Slice17 parent= relZ=-133.5 globZ=16.5
+	zmin=16.0 zmax=17.0
+BLCMDbox::Construct Slice18 parent= relZ=-132.5 globZ=17.5
+	zmin=17.0 zmax=18.0
+BLCMDbox::Construct Slice19 parent= relZ=-131.5 globZ=18.5
+	zmin=18.0 zmax=19.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice20:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (98.6319,-99.0154,-130) by 3.9758 cm  (max of 216 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice20 parent= relZ=-130.5 globZ=19.5
+	zmin=19.0 zmax=20.0
+BLCMDbox::Construct Slice21 parent= relZ=-129.5 globZ=20.5
+	zmin=20.0 zmax=21.0
+BLCMDbox::Construct Slice22 parent= relZ=-128.5 globZ=21.5
+	zmin=21.0 zmax=22.0
+BLCMDbox::Construct Slice23 parent= relZ=-127.5 globZ=22.5
+	zmin=22.0 zmax=23.0
+BLCMDbox::Construct Slice24 parent= relZ=-126.5 globZ=23.5
+	zmin=23.0 zmax=24.0
+BLCMDbox::Construct Slice25 parent= relZ=-125.5 globZ=24.5
+	zmin=24.0 zmax=25.0
+BLCMDbox::Construct Slice26 parent= relZ=-124.5 globZ=25.5
+	zmin=25.0 zmax=26.0
+BLCMDbox::Construct Slice27 parent= relZ=-123.5 globZ=26.5
+	zmin=26.0 zmax=27.0
+BLCMDbox::Construct Slice28 parent= relZ=-122.5 globZ=27.5
+	zmin=27.0 zmax=28.0
+BLCMDbox::Construct Slice29 parent= relZ=-121.5 globZ=28.5
+	zmin=28.0 zmax=29.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice30:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-94.7883,100,-120.304) by 3.77854 cm  (max of 216 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice30 parent= relZ=-120.5 globZ=29.5
+	zmin=29.0 zmax=30.0
+BLCMDbox::Construct Slice31 parent= relZ=-119.5 globZ=30.5
+	zmin=30.0 zmax=31.0
+BLCMDbox::Construct Slice32 parent= relZ=-118.5 globZ=31.5
+	zmin=31.0 zmax=32.0
+BLCMDbox::Construct Slice33 parent= relZ=-117.5 globZ=32.5
+	zmin=32.0 zmax=33.0
+BLCMDbox::Construct Slice34 parent= relZ=-116.5 globZ=33.5
+	zmin=33.0 zmax=34.0
+BLCMDbox::Construct Slice35 parent= relZ=-115.5 globZ=34.5
+	zmin=34.0 zmax=35.0
+BLCMDbox::Construct Slice36 parent= relZ=-114.5 globZ=35.5
+	zmin=35.0 zmax=36.0
+BLCMDbox::Construct Slice37 parent= relZ=-113.5 globZ=36.5
+	zmin=36.0 zmax=37.0
+BLCMDbox::Construct Slice38 parent= relZ=-112.5 globZ=37.5
+	zmin=37.0 zmax=38.0
+BLCMDbox::Construct Slice39 parent= relZ=-111.5 globZ=38.5
+	zmin=38.0 zmax=39.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice40:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (100,97.844,-110.034) by 3.99052 cm  (max of 235 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice40 parent= relZ=-110.5 globZ=39.5
+	zmin=39.0 zmax=40.0
+BLCMDbox::Construct Slice41 parent= relZ=-109.5 globZ=40.5
+	zmin=40.0 zmax=41.0
+BLCMDbox::Construct Slice42 parent= relZ=-108.5 globZ=41.5
+	zmin=41.0 zmax=42.0
+BLCMDbox::Construct Slice43 parent= relZ=-107.5 globZ=42.5
+	zmin=42.0 zmax=43.0
+BLCMDbox::Construct Slice44 parent= relZ=-106.5 globZ=43.5
+	zmin=43.0 zmax=44.0
+BLCMDbox::Construct Slice45 parent= relZ=-105.5 globZ=44.5
+	zmin=44.0 zmax=45.0
+BLCMDbox::Construct Slice46 parent= relZ=-104.5 globZ=45.5
+	zmin=45.0 zmax=46.0
+BLCMDbox::Construct Slice47 parent= relZ=-103.5 globZ=46.5
+	zmin=46.0 zmax=47.0
+BLCMDbox::Construct Slice48 parent= relZ=-102.5 globZ=47.5
+	zmin=47.0 zmax=48.0
+BLCMDbox::Construct Slice49 parent= relZ=-101.5 globZ=48.5
+	zmin=48.0 zmax=49.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice50:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-97.3496,-98.1108,-100) by 3.82124 cm  (max of 226 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice50 parent= relZ=-100.5 globZ=49.5
+	zmin=49.0 zmax=50.0
+BLCMDbox::Construct Slice51 parent= relZ=-99.5 globZ=50.5
+	zmin=50.0 zmax=51.0
+BLCMDbox::Construct Slice52 parent= relZ=-98.5 globZ=51.5
+	zmin=51.0 zmax=52.0
+BLCMDbox::Construct Slice53 parent= relZ=-97.5 globZ=52.5
+	zmin=52.0 zmax=53.0
+BLCMDbox::Construct Slice54 parent= relZ=-96.5 globZ=53.5
+	zmin=53.0 zmax=54.0
+BLCMDbox::Construct Slice55 parent= relZ=-95.5 globZ=54.5
+	zmin=54.0 zmax=55.0
+BLCMDbox::Construct Slice56 parent= relZ=-94.5 globZ=55.5
+	zmin=55.0 zmax=56.0
+BLCMDbox::Construct Slice57 parent= relZ=-93.5 globZ=56.5
+	zmin=56.0 zmax=57.0
+BLCMDbox::Construct Slice58 parent= relZ=-92.5 globZ=57.5
+	zmin=57.0 zmax=58.0
+BLCMDbox::Construct Slice59 parent= relZ=-91.5 globZ=58.5
+	zmin=58.0 zmax=59.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice60:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-99.6645,-94.782,-90) by 3.75378 cm  (max of 228 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice60 parent= relZ=-90.5 globZ=59.5
+	zmin=59.0 zmax=60.0
+BLCMDbox::Construct Slice61 parent= relZ=-89.5 globZ=60.5
+	zmin=60.0 zmax=61.0
+BLCMDbox::Construct Slice62 parent= relZ=-88.5 globZ=61.5
+	zmin=61.0 zmax=62.0
+BLCMDbox::Construct Slice63 parent= relZ=-87.5 globZ=62.5
+	zmin=62.0 zmax=63.0
+BLCMDbox::Construct Slice64 parent= relZ=-86.5 globZ=63.5
+	zmin=63.0 zmax=64.0
+BLCMDbox::Construct Slice65 parent= relZ=-85.5 globZ=64.5
+	zmin=64.0 zmax=65.0
+BLCMDbox::Construct Slice66 parent= relZ=-84.5 globZ=65.5
+	zmin=65.0 zmax=66.0
+BLCMDbox::Construct Slice67 parent= relZ=-83.5 globZ=66.5
+	zmin=66.0 zmax=67.0
+BLCMDbox::Construct Slice68 parent= relZ=-82.5 globZ=67.5
+	zmin=67.0 zmax=68.0
+BLCMDbox::Construct Slice69 parent= relZ=-81.5 globZ=68.5
+	zmin=68.0 zmax=69.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice70:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (100,-99.227,-80.4159) by 4.08758 cm  (max of 232 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice70 parent= relZ=-80.5 globZ=69.5
+	zmin=69.0 zmax=70.0
+BLCMDbox::Construct Slice71 parent= relZ=-79.5 globZ=70.5
+	zmin=70.0 zmax=71.0
+BLCMDbox::Construct Slice72 parent= relZ=-78.5 globZ=71.5
+	zmin=71.0 zmax=72.0
+BLCMDbox::Construct Slice73 parent= relZ=-77.5 globZ=72.5
+	zmin=72.0 zmax=73.0
+BLCMDbox::Construct Slice74 parent= relZ=-76.5 globZ=73.5
+	zmin=73.0 zmax=74.0
+BLCMDbox::Construct Slice75 parent= relZ=-75.5 globZ=74.5
+	zmin=74.0 zmax=75.0
+BLCMDbox::Construct Slice76 parent= relZ=-74.5 globZ=75.5
+	zmin=75.0 zmax=76.0
+BLCMDbox::Construct Slice77 parent= relZ=-73.5 globZ=76.5
+	zmin=76.0 zmax=77.0
+BLCMDbox::Construct Slice78 parent= relZ=-72.5 globZ=77.5
+	zmin=77.0 zmax=78.0
+BLCMDbox::Construct Slice79 parent= relZ=-71.5 globZ=78.5
+	zmin=78.0 zmax=79.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice80:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-99.7351,97.1406,-71) by 3.92242 cm  (max of 194 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice80 parent= relZ=-70.5 globZ=79.5
+	zmin=79.0 zmax=80.0
+Checking overlaps for volume Slice1:0 (G4Box) ... Checking overlaps for volume Slice2:0 (G4Box) ... Checking overlaps for volume Slice3:0 (G4Box) ... Checking overlaps for volume Slice4:0 (G4Box) ... Checking overlaps for volume Slice5:0 (G4Box) ... Checking overlaps for volume Slice6:0 (G4Box) ... Checking overlaps for volume Slice7:0 (G4Box) ... Checking overlaps for volume Slice8:0 (G4Box) ... Checking overlaps for volume Slice9:0 (G4Box) ... Checking overlaps for volume Slice10:0 (G4Box) ... Checking overlaps for volume Slice11:0 (G4Box) ... Checking overlaps for volume Slice12:0 (G4Box) ... Checking overlaps for volume Slice13:0 (G4Box) ... Checking overlaps for volume Slice14:0 (G4Box) ... Checking overlaps for volume Slice15:0 (G4Box) ... Checking overlaps for volume Slice16:0 (G4Box) ... Checking overlaps for volume Slice17:0 (G4Box) ... Checking overlaps for volume Slice18:0 (G4Box) ... Checking overlaps for volume Slice19:0 (G4Box) ... Checking overlaps for volume Slice20:0 (G4Box) ... Checking overlaps for volume Slice21:0 (G4Box) ... Checking overlaps for volume Slice22:0 (G4Box) ... Checking overlaps for volume Slice23:0 (G4Box) ... Checking overlaps for volume Slice24:0 (G4Box) ... Checking overlaps for volume Slice25:0 (G4Box) ... Checking overlaps for volume Slice26:0 (G4Box) ... Checking overlaps for volume Slice27:0 (G4Box) ... Checking overlaps for volume Slice28:0 (G4Box) ... Checking overlaps for volume Slice29:0 (G4Box) ... Checking overlaps for volume Slice30:0 (G4Box) ... Checking overlaps for volume Slice31:0 (G4Box) ... Checking overlaps for volume Slice32:0 (G4Box) ... Checking overlaps for volume Slice33:0 (G4Box) ... Checking overlaps for volume Slice34:0 (G4Box) ... Checking overlaps for volume Slice35:0 (G4Box) ... Checking overlaps for volume Slice36:0 (G4Box) ... Checking overlaps for volume Slice37:0 (G4Box) ... Checking overlaps for volume Slice38:0 (G4Box) ... Checking overlaps for volume Slice39:0 (G4Box) ... Checking overlaps for volume Slice40:0 (G4Box) ... Checking overlaps for volume Slice41:0 (G4Box) ... Checking overlaps for volume Slice42:0 (G4Box) ... Checking overlaps for volume Slice43:0 (G4Box) ... Checking overlaps for volume Slice44:0 (G4Box) ... Checking overlaps for volume Slice45:0 (G4Box) ... Checking overlaps for volume Slice46:0 (G4Box) ... Checking overlaps for volume Slice47:0 (G4Box) ... Checking overlaps for volume Slice48:0 (G4Box) ... Checking overlaps for volume Slice49:0 (G4Box) ... Checking overlaps for volume Slice50:0 (G4Box) ... Checking overlaps for volume Slice51:0 (G4Box) ... Checking overlaps for volume Slice52:0 (G4Box) ... Checking overlaps for volume Slice53:0 (G4Box) ... Checking overlaps for volume Slice54:0 (G4Box) ... Checking overlaps for volume Slice55:0 (G4Box) ... Checking overlaps for volume Slice56:0 (G4Box) ... Checking overlaps for volume Slice57:0 (G4Box) ... Checking overlaps for volume Slice58:0 (G4Box) ... Checking overlaps for volume Slice59:0 (G4Box) ... Checking overlaps for volume Slice60:0 (G4Box) ... Checking overlaps for volume Slice61:0 (G4Box) ... Checking overlaps for volume Slice62:0 (G4Box) ... Checking overlaps for volume Slice63:0 (G4Box) ... Checking overlaps for volume Slice64:0 (G4Box) ... Checking overlaps for volume Slice65:0 (G4Box) ... Checking overlaps for volume Slice66:0 (G4Box) ... Checking overlaps for volume Slice67:0 (G4Box) ... Checking overlaps for volume Slice68:0 (G4Box) ... Checking overlaps for volume Slice69:0 (G4Box) ... Checking overlaps for volume Slice70:0 (G4Box) ... Checking overlaps for volume Slice71:0 (G4Box) ... Checking overlaps for volume Slice72:0 (G4Box) ... Checking overlaps for volume Slice73:0 (G4Box) ... Checking overlaps for volume Slice74:0 (G4Box) ... Checking overlaps for volume Slice75:0 (G4Box) ... Checking overlaps for volume Slice76:0 (G4Box) ... Checking overlaps for volume Slice77:0 (G4Box) ... Checking overlaps for volume Slice78:0 (G4Box) ... Checking overlaps for volume Slice79:0 (G4Box) ... Checking overlaps for volume Slice80:0 (G4Box) ... Checking overlaps for voBLCMDbox::Construct Slice81 parent= relZ=-69.5 globZ=80.5
+	zmin=80.0 zmax=81.0
+BLCMDbox::Construct Slice82 parent= relZ=-68.5 globZ=81.5
+	zmin=81.0 zmax=82.0
+BLCMDbox::Construct Slice83 parent= relZ=-67.5 globZ=82.5
+	zmin=82.0 zmax=83.0
+BLCMDbox::Construct Slice84 parent= relZ=-66.5 globZ=83.5
+	zmin=83.0 zmax=84.0
+BLCMDbox::Construct Slice85 parent= relZ=-65.5 globZ=84.5
+	zmin=84.0 zmax=85.0
+BLCMDbox::Construct Slice86 parent= relZ=-64.5 globZ=85.5
+	zmin=85.0 zmax=86.0
+BLCMDbox::Construct Slice87 parent= relZ=-63.5 globZ=86.5
+	zmin=86.0 zmax=87.0
+BLCMDbox::Construct Slice88 parent= relZ=-62.5 globZ=87.5
+	zmin=87.0 zmax=88.0
+BLCMDbox::Construct Slice89 parent= relZ=-61.5 globZ=88.5
+	zmin=88.0 zmax=89.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice90:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (96.8751,-100,-60.6397) by 3.92293 cm  (max of 220 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 10-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice90 parent= relZ=-60.5 globZ=89.5
+	zmin=89.0 zmax=90.0
+BLCMDbox::Construct Slice91 parent= relZ=-59.5 globZ=90.5
+	zmin=90.0 zmax=91.0
+BLCMDbox::Construct Slice92 parent= relZ=-58.5 globZ=91.5
+	zmin=91.0 zmax=92.0
+BLCMDbox::Construct Slice93 parent= relZ=-57.5 globZ=92.5
+	zmin=92.0 zmax=93.0
+BLCMDbox::Construct Slice94 parent= relZ=-56.5 globZ=93.5
+	zmin=93.0 zmax=94.0
+BLCMDbox::Construct Slice95 parent= relZ=-55.5 globZ=94.5
+	zmin=94.0 zmax=95.0
+BLCMDbox::Construct Slice96 parent= relZ=-54.5 globZ=95.5
+	zmin=95.0 zmax=96.0
+BLCMDbox::Construct Slice97 parent= relZ=-53.5 globZ=96.5
+	zmin=96.0 zmax=97.0
+BLCMDbox::Construct Slice98 parent= relZ=-52.5 globZ=97.5
+	zmin=97.0 zmax=98.0
+BLCMDbox::Construct Slice99 parent= relZ=-51.5 globZ=98.5
+	zmin=98.0 zmax=99.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice100:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (98.8605,-96.2342,-50) by 3.79653 cm  (max of 197 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 100-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice100 parent= relZ=-50.5 globZ=99.5
+	zmin=99.0 zmax=100.0
+BLCMDbox::Construct Slice101 parent= relZ=-49.5 globZ=100.5
+	zmin=100.0 zmax=101.0
+BLCMDbox::Construct Slice102 parent= relZ=-48.5 globZ=101.5
+	zmin=101.0 zmax=102.0
+BLCMDbox::Construct Slice103 parent= relZ=-47.5 globZ=102.5
+	zmin=102.0 zmax=103.0
+BLCMDbox::Construct Slice104 parent= relZ=-46.5 globZ=103.5
+	zmin=103.0 zmax=104.0
+BLCMDbox::Construct Slice105 parent= relZ=-45.5 globZ=104.5
+	zmin=104.0 zmax=105.0
+BLCMDbox::Construct Slice106 parent= relZ=-44.5 globZ=105.5
+	zmin=105.0 zmax=106.0
+BLCMDbox::Construct Slice107 parent= relZ=-43.5 globZ=106.5
+	zmin=106.0 zmax=107.0
+BLCMDbox::Construct Slice108 parent= relZ=-42.5 globZ=107.5
+	zmin=107.0 zmax=108.0
+BLCMDbox::Construct Slice109 parent= relZ=-41.5 globZ=108.5
+	zmin=108.0 zmax=109.0
+BLCMDbox::Construct Slice110 parent= relZ=-40.5 globZ=109.5
+	zmin=109.0 zmax=110.0
+BLCMDbox::Construct Slice111 parent= relZ=-39.5 globZ=110.5
+	zmin=110.0 zmax=111.0
+BLCMDbox::Construct Slice112 parent= relZ=-38.5 globZ=111.5
+	zmin=111.0 zmax=112.0
+BLCMDbox::Construct Slice113 parent= relZ=-37.5 globZ=112.5
+	zmin=112.0 zmax=113.0
+BLCMDbox::Construct Slice114 parent= relZ=-36.5 globZ=113.5
+	zmin=113.0 zmax=114.0
+BLCMDbox::Construct Slice115 parent= relZ=-35.5 globZ=114.5
+	zmin=114.0 zmax=115.0
+BLCMDbox::Construct Slice116 parent= relZ=-34.5 globZ=115.5
+	zmin=115.0 zmax=116.0
+BLCMDbox::Construct Slice117 parent= relZ=-33.5 globZ=116.5
+	zmin=116.0 zmax=117.0
+BLCMDbox::Construct Slice118 parent= relZ=-32.5 globZ=117.5
+	zmin=117.0 zmax=118.0
+BLCMDbox::Construct Slice119 parent= relZ=-31.5 globZ=118.5
+	zmin=118.0 zmax=119.0
+BLCMDbox::Construct Slice120 parent= relZ=-30.5 globZ=119.5
+	zmin=119.0 zmax=120.0
+BLCMDbox::Construct Slice121 parent= relZ=-29.5 globZ=120.5
+	zmin=120.0 zmax=121.0
+BLCMDbox::Construct Slice122 parent= relZ=-28.5 globZ=121.5
+	zmin=121.0 zmax=122.0
+BLCMDbox::Construct Slice123 parent= relZ=-27.5 globZ=122.5
+	zmin=122.0 zmax=123.0
+BLCMDbox::Construct Slice124 parent= relZ=-26.5 globZ=123.5
+	zmin=123.0 zmax=124.0
+BLCMDbox::Construct Slice125 parent= relZ=-25.5 globZ=124.5
+	zmin=124.0 zmax=125.0
+BLCMDbox::Construct Slice126 parent= relZ=-24.5 globZ=125.5
+	zmin=125.0 zmax=126.0
+BLCMDbox::Construct Slice127 parent= relZ=-23.5 globZ=126.5
+	zmin=126.0 zmax=127.0
+BLCMDbox::Construct Slice128 parent= relZ=-22.5 globZ=127.5
+	zmin=127.0 zmax=128.0
+BLCMDbox::Construct Slice129 parent= relZ=-21.5 globZ=128.5
+	zmin=128.0 zmax=129.0
+BLCMDbox::Construct Slice130 parent= relZ=-20.5 globZ=129.5
+	zmin=129.0 zmax=130.0
+BLCMDbox::Construct Slice131 parent= relZ=-19.5 globZ=130.5
+	zmin=130.0 zmax=131.0
+BLCMDbox::Construct Slice132 parent= relZ=-18.5 globZ=131.5
+	zmin=131.0 zmax=132.0
+BLCMDbox::Construct Slice133 parent= relZ=-17.5 globZ=132.5
+	zmin=132.0 zmax=133.0
+BLCMDbox::Construct Slice134 parent= relZ=-16.5 globZ=133.5
+	zmin=133.0 zmax=134.0
+BLCMDbox::Construct Slice135 parent= relZ=-15.5 globZ=134.5
+	zmin=134.0 zmax=135.0
+BLCMDbox::Construct Slice136 parent= relZ=-14.5 globZ=135.5
+	zmin=135.0 zmax=136.0
+BLCMDbox::Construct Slice137 parent= relZ=-13.5 globZ=136.5
+	zmin=136.0 zmax=137.0
+BLCMDbox::Construct Slice138 parent= relZ=-12.5 globZ=137.5
+	zmin=137.0 zmax=138.0
+BLCMDbox::Construct Slice139 parent= relZ=-11.5 globZ=138.5
+	zmin=138.0 zmax=139.0
+BLCMDbox::Construct Slice140 parent= relZ=-10.5 globZ=139.5
+	zmin=139.0 zmax=140.0
+BLCMDbox::Construct Slice141 parent= relZ=-9.5 globZ=140.5
+	zmin=140.0 zmax=141.0
+BLCMDbox::Construct Slice142 parent= relZ=-8.5 globZ=141.5
+	zmin=141.0 zmax=142.0
+BLCMDbox::Construct Slice143 parent= relZ=-7.5 globZ=142.5
+	zmin=142.0 zmax=143.0
+BLCMDbox::Construct Slice144 parent= relZ=-6.5 globZ=143.5
+	zmin=143.0 zmax=144.0
+BLCMDbox::Construct Slice145 parent= relZ=-5.5 globZ=144.5
+	zmin=144.0 zmax=145.0
+BLCMDbox::Construct Slice146 parent= relZ=-4.5 globZ=145.5
+	zmin=145.0 zmax=146.0
+BLCMDbox::Construct Slice147 parent= relZ=-3.5 globZ=146.5
+	zmin=146.0 zmax=147.0
+BLCMDbox::Construct Slice148 parent= relZ=-2.5 globZ=147.5
+	zmin=147.0 zmax=148.0
+BLCMDbox::Construct Slice149 parent= relZ=-1.5 globZ=148.5
+	zmin=148.0 zmax=149.0
+BLCMDbox::Construct Slice150 parent= relZ=-0.5 globZ=149.5
+	zmin=149.0 zmax=150.0
+BLCMDbox::Construct Slice151 parent= relZ=0.5 globZ=150.5
+	zmin=150.0 zmax=151.0
+BLCMDbox::Construct Slice152 parent= relZ=1.5 globZ=151.5
+	zmin=151.0 zmax=152.0
+BLCMDbox::Construct Slice153 parent= relZ=2.5 globZ=152.5
+	zmin=152.0 zmax=153.0
+BLCMDbox::Construct Slice154 parent= relZ=3.5 globZ=153.5
+	zmin=153.0 zmax=154.0
+BLCMDbox::Construct Slice155 parent= relZ=4.5 globZ=154.5
+	zmin=154.0 zmax=155.0
+BLCMDbox::Construct Slice156 parent= relZ=5.5 globZ=155.5
+	zmin=155.0 zmax=156.0
+BLCMDbox::Construct Slice157 parent= relZ=6.5 globZ=156.5
+	zmin=156.0 zmax=157.0
+BLCMDbox::Construct Slice158 parent= relZ=7.5 globZ=157.5
+	zmin=157.0 zmax=158.0
+BLCMDbox::Construct Slice159 parent= relZ=8.5 globZ=158.5
+	zmin=158.0 zmax=159.0
+lume Slice81:0 (G4Box) ... Checking overlaps for volume Slice82:0 (G4Box) ... Checking overlaps for volume Slice83:0 (G4Box) ... Checking overlaps for volume Slice84:0 (G4Box) ... Checking overlaps for volume Slice85:0 (G4Box) ... Checking overlaps for volume Slice86:0 (G4Box) ... Checking overlaps for volume Slice87:0 (G4Box) ... Checking overlaps for volume Slice88:0 (G4Box) ... Checking overlaps for volume Slice89:0 (G4Box) ... Checking overlaps for volume Slice90:0 (G4Box) ... Checking overlaps for volume Slice91:0 (G4Box) ... Checking overlaps for volume Slice92:0 (G4Box) ... Checking overlaps for volume Slice93:0 (G4Box) ... Checking overlaps for volume Slice94:0 (G4Box) ... Checking overlaps for volume Slice95:0 (G4Box) ... Checking overlaps for volume Slice96:0 (G4Box) ... Checking overlaps for volume Slice97:0 (G4Box) ... Checking overlaps for volume Slice98:0 (G4Box) ... Checking overlaps for volume Slice99:0 (G4Box) ... Checking overlaps for volume Slice100:0 (G4Box) ... Checking overlaps for volume Slice101:0 (G4Box) ... Checking overlaps for volume Slice102:0 (G4Box) ... Checking overlaps for volume Slice103:0 (G4Box) ... Checking overlaps for volume Slice104:0 (G4Box) ... Checking overlaps for volume Slice105:0 (G4Box) ... Checking overlaps for volume Slice106:0 (G4Box) ... Checking overlaps for volume Slice107:0 (G4Box) ... Checking overlaps for volume Slice108:0 (G4Box) ... Checking overlaps for volume Slice109:0 (G4Box) ... Checking overlaps for volume Slice110:0 (G4Box) ... Checking overlaps for volume Slice111:0 (G4Box) ... Checking overlaps for volume Slice112:0 (G4Box) ... Checking overlaps for volume Slice113:0 (G4Box) ... Checking overlaps for volume Slice114:0 (G4Box) ... Checking overlaps for volume Slice115:0 (G4Box) ... Checking overlaps for volume Slice116:0 (G4Box) ... Checking overlaps for volume Slice117:0 (G4Box) ... Checking overlaps for volume Slice118:0 (G4Box) ... Checking overlaps for volume Slice119:0 (G4Box) ... Checking overlaps for volume Slice120:0 (G4Box) ... Checking overlaps for volume Slice121:0 (G4Box) ... Checking overlaps for volume Slice122:0 (G4Box) ... Checking overlaps for volume Slice123:0 (G4Box) ... Checking overlaps for volume Slice124:0 (G4Box) ... Checking overlaps for volume Slice125:0 (G4Box) ... Checking overlaps for volume Slice126:0 (G4Box) ... Checking overlaps for volume Slice127:0 (G4Box) ... Checking overlaps for volume Slice128:0 (G4Box) ... Checking overlaps for volume Slice129:0 (G4Box) ... Checking overlaps for volume Slice130:0 (G4Box) ... Checking overlaps for volume Slice131:0 (G4Box) ... Checking overlaps for volume Slice132:0 (G4Box) ... Checking overlaps for volume Slice133:0 (G4Box) ... Checking overlaps for volume Slice134:0 (G4Box) ... Checking overlaps for volume Slice135:0 (G4Box) ... Checking overlaps for volume Slice136:0 (G4Box) ... Checking overlaps for volume Slice137:0 (G4Box) ... Checking overlaps for volume Slice138:0 (G4Box) ... Checking overlaps for volume Slice139:0 (G4Box) ... Checking overlaps for volume Slice140:0 (G4Box) ... Checking overlaps for volume Slice141:0 (G4Box) ... Checking overlaps for volume Slice142:0 (G4Box) ... Checking overlaps for volume Slice143:0 (G4Box) ... Checking overlaps for volume Slice144:0 (G4Box) ... Checking overlaps for volume Slice145:0 (G4Box) ... Checking overlaps for volume Slice146:0 (G4Box) ... Checking overlaps for volume Slice147:0 (G4Box) ... Checking overlaps for volume Slice148:0 (G4Box) ... Checking overlaps for volume Slice149:0 (G4Box) ... Checking overlaps for volume Slice150:0 (G4Box) ... Checking overlaps for volume Slice151:0 (G4Box) ... Checking overlaps for volume Slice152:0 (G4Box) ... Checking overlaps for volume Slice153:0 (G4Box) ... Checking overlaps for volume Slice154:0 (G4Box) ... Checking overlaps for volume Slice155:0 (G4Box) ... Checking overlaps for volume Slice156:0 (G4Box) ... Checking overlaps for volume Slice157:0 (G4Box) ... Checking overlaps for volume Slice158:0 (G4Box) ... Checking overlaps for volume Slice159:0 (G4Box) ... Checking overlaps for volume SBLCMDbox::Construct Slice160 parent= relZ=9.5 globZ=159.5
+	zmin=159.0 zmax=160.0
+BLCMDbox::Construct Slice161 parent= relZ=10.5 globZ=160.5
+	zmin=160.0 zmax=161.0
+BLCMDbox::Construct Slice162 parent= relZ=11.5 globZ=161.5
+	zmin=161.0 zmax=162.0
+BLCMDbox::Construct Slice163 parent= relZ=12.5 globZ=162.5
+	zmin=162.0 zmax=163.0
+BLCMDbox::Construct Slice164 parent= relZ=13.5 globZ=163.5
+	zmin=163.0 zmax=164.0
+BLCMDbox::Construct Slice165 parent= relZ=14.5 globZ=164.5
+	zmin=164.0 zmax=165.0
+BLCMDbox::Construct Slice166 parent= relZ=15.5 globZ=165.5
+	zmin=165.0 zmax=166.0
+BLCMDbox::Construct Slice167 parent= relZ=16.5 globZ=166.5
+	zmin=166.0 zmax=167.0
+BLCMDbox::Construct Slice168 parent= relZ=17.5 globZ=167.5
+	zmin=167.0 zmax=168.0
+BLCMDbox::Construct Slice169 parent= relZ=18.5 globZ=168.5
+	zmin=168.0 zmax=169.0
+BLCMDbox::Construct Slice170 parent= relZ=19.5 globZ=169.5
+	zmin=169.0 zmax=170.0
+BLCMDbox::Construct Slice171 parent= relZ=20.5 globZ=170.5
+	zmin=170.0 zmax=171.0
+BLCMDbox::Construct Slice172 parent= relZ=21.5 globZ=171.5
+	zmin=171.0 zmax=172.0
+BLCMDbox::Construct Slice173 parent= relZ=22.5 globZ=172.5
+	zmin=172.0 zmax=173.0
+BLCMDbox::Construct Slice174 parent= relZ=23.5 globZ=173.5
+	zmin=173.0 zmax=174.0
+BLCMDbox::Construct Slice175 parent= relZ=24.5 globZ=174.5
+	zmin=174.0 zmax=175.0
+BLCMDbox::Construct Slice176 parent= relZ=25.5 globZ=175.5
+	zmin=175.0 zmax=176.0
+BLCMDbox::Construct Slice177 parent= relZ=26.5 globZ=176.5
+	zmin=176.0 zmax=177.0
+BLCMDbox::Construct Slice178 parent= relZ=27.5 globZ=177.5
+	zmin=177.0 zmax=178.0
+BLCMDbox::Construct Slice179 parent= relZ=28.5 globZ=178.5
+	zmin=178.0 zmax=179.0
+BLCMDbox::Construct Slice180 parent= relZ=29.5 globZ=179.5
+	zmin=179.0 zmax=180.0
+BLCMDbox::Construct Slice181 parent= relZ=30.5 globZ=180.5
+	zmin=180.0 zmax=181.0
+BLCMDbox::Construct Slice182 parent= relZ=31.5 globZ=181.5
+	zmin=181.0 zmax=182.0
+BLCMDbox::Construct Slice183 parent= relZ=32.5 globZ=182.5
+	zmin=182.0 zmax=183.0
+BLCMDbox::Construct Slice184 parent= relZ=33.5 globZ=183.5
+	zmin=183.0 zmax=184.0
+BLCMDbox::Construct Slice185 parent= relZ=34.5 globZ=184.5
+	zmin=184.0 zmax=185.0
+BLCMDbox::Construct Slice186 parent= relZ=35.5 globZ=185.5
+	zmin=185.0 zmax=186.0
+BLCMDbox::Construct Slice187 parent= relZ=36.5 globZ=186.5
+	zmin=186.0 zmax=187.0
+BLCMDbox::Construct Slice188 parent= relZ=37.5 globZ=187.5
+	zmin=187.0 zmax=188.0
+BLCMDbox::Construct Slice189 parent= relZ=38.5 globZ=188.5
+	zmin=188.0 zmax=189.0
+BLCMDbox::Construct Slice190 parent= relZ=39.5 globZ=189.5
+	zmin=189.0 zmax=190.0
+BLCMDbox::Construct Slice191 parent= relZ=40.5 globZ=190.5
+	zmin=190.0 zmax=191.0
+BLCMDbox::Construct Slice192 parent= relZ=41.5 globZ=191.5
+	zmin=191.0 zmax=192.0
+BLCMDbox::Construct Slice193 parent= relZ=42.5 globZ=192.5
+	zmin=192.0 zmax=193.0
+BLCMDbox::Construct Slice194 parent= relZ=43.5 globZ=193.5
+	zmin=193.0 zmax=194.0
+BLCMDbox::Construct Slice195 parent= relZ=44.5 globZ=194.5
+	zmin=194.0 zmax=195.0
+BLCMDbox::Construct Slice196 parent= relZ=45.5 globZ=195.5
+	zmin=195.0 zmax=196.0
+BLCMDbox::Construct Slice197 parent= relZ=46.5 globZ=196.5
+	zmin=196.0 zmax=197.0
+BLCMDbox::Construct Slice198 parent= relZ=47.5 globZ=197.5
+	zmin=197.0 zmax=198.0
+BLCMDbox::Construct Slice199 parent= relZ=48.5 globZ=198.5
+	zmin=198.0 zmax=199.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice200:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (97.0156,98.4554,49) by 3.82226 cm  (max of 235 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 100-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice200 parent= relZ=49.5 globZ=199.5
+	zmin=199.0 zmax=200.0
+BLCMDbox::Construct Slice201 parent= relZ=50.5 globZ=200.5
+	zmin=200.0 zmax=201.0
+BLCMDbox::Construct Slice202 parent= relZ=51.5 globZ=201.5
+	zmin=201.0 zmax=202.0
+BLCMDbox::Construct Slice203 parent= relZ=52.5 globZ=202.5
+	zmin=202.0 zmax=203.0
+BLCMDbox::Construct Slice204 parent= relZ=53.5 globZ=203.5
+	zmin=203.0 zmax=204.0
+BLCMDbox::Construct Slice205 parent= relZ=54.5 globZ=204.5
+	zmin=204.0 zmax=205.0
+BLCMDbox::Construct Slice206 parent= relZ=55.5 globZ=205.5
+	zmin=205.0 zmax=206.0
+BLCMDbox::Construct Slice207 parent= relZ=56.5 globZ=206.5
+	zmin=206.0 zmax=207.0
+BLCMDbox::Construct Slice208 parent= relZ=57.5 globZ=207.5
+	zmin=207.0 zmax=208.0
+BLCMDbox::Construct Slice209 parent= relZ=58.5 globZ=208.5
+	zmin=208.0 zmax=209.0
+BLCMDbox::Construct Slice210 parent= relZ=59.5 globZ=209.5
+	zmin=209.0 zmax=210.0
+BLCMDbox::Construct Slice211 parent= relZ=60.5 globZ=210.5
+	zmin=210.0 zmax=211.0
+BLCMDbox::Construct Slice212 parent= relZ=61.5 globZ=211.5
+	zmin=211.0 zmax=212.0
+BLCMDbox::Construct Slice213 parent= relZ=62.5 globZ=212.5
+	zmin=212.0 zmax=213.0
+BLCMDbox::Construct Slice214 parent= relZ=63.5 globZ=213.5
+	zmin=213.0 zmax=214.0
+BLCMDbox::Construct Slice215 parent= relZ=64.5 globZ=214.5
+	zmin=214.0 zmax=215.0
+BLCMDbox::Construct Slice216 parent= relZ=65.5 globZ=215.5
+	zmin=215.0 zmax=216.0
+BLCMDbox::Construct Slice217 parent= relZ=66.5 globZ=216.5
+	zmin=216.0 zmax=217.0
+BLCMDbox::Construct Slice218 parent= relZ=67.5 globZ=217.5
+	zmin=217.0 zmax=218.0
+BLCMDbox::Construct Slice219 parent= relZ=68.5 globZ=218.5
+	zmin=218.0 zmax=219.0
+BLCMDbox::Construct Slice220 parent= relZ=69.5 globZ=219.5
+	zmin=219.0 zmax=220.0
+BLCMDbox::Construct Slice221 parent= relZ=70.5 globZ=220.5
+	zmin=220.0 zmax=221.0
+BLCMDbox::Construct Slice222 parent= relZ=71.5 globZ=221.5
+	zmin=221.0 zmax=222.0
+BLCMDbox::Construct Slice223 parent= relZ=72.5 globZ=222.5
+	zmin=222.0 zmax=223.0
+BLCMDbox::Construct Slice224 parent= relZ=73.5 globZ=223.5
+	zmin=223.0 zmax=224.0
+BLCMDbox::Construct Slice225 parent= relZ=74.5 globZ=224.5
+	zmin=224.0 zmax=225.0
+BLCMDbox::Construct Slice226 parent= relZ=75.5 globZ=225.5
+	zmin=225.0 zmax=226.0
+BLCMDbox::Construct Slice227 parent= relZ=76.5 globZ=226.5
+	zmin=226.0 zmax=227.0
+BLCMDbox::Construct Slice228 parent= relZ=77.5 globZ=227.5
+	zmin=227.0 zmax=228.0
+BLCMDbox::Construct Slice229 parent= relZ=78.5 globZ=228.5
+	zmin=228.0 zmax=229.0
+BLCMDbox::Construct Slice230 parent= relZ=79.5 globZ=229.5
+	zmin=229.0 zmax=230.0
+BLCMDbox::Construct Slice231 parent= relZ=80.5 globZ=230.5
+	zmin=230.0 zmax=231.0
+BLCMDbox::Construct Slice232 parent= relZ=81.5 globZ=231.5
+	zmin=231.0 zmax=232.0
+BLCMDbox::Construct Slice233 parent= relZ=82.5 globZ=232.5
+	zmin=232.0 zmax=233.0
+BLCMDbox::Construct Slice234 parent= relZ=83.5 globZ=233.5
+	zmin=233.0 zmax=234.0
+BLCMDbox::Construct Slice235 parent= relZ=84.5 globZ=234.5
+	zmin=234.0 zmax=235.0
+BLCMDbox::Construct Slice236 parent= relZ=85.5 globZ=235.5
+	zmin=235.0 zmax=236.0
+BLCMDbox::Construct Slice237 parent= relZ=86.5 globZ=236.5
+	zmin=236.0 zmax=237.0
+BLCMDbox::Construct Slice238 parent= relZ=87.5 globZ=237.5
+	zmin=237.0 zmax=238.0
+lice160:0 (G4Box) ... Checking overlaps for volume Slice161:0 (G4Box) ... Checking overlaps for volume Slice162:0 (G4Box) ... Checking overlaps for volume Slice163:0 (G4Box) ... Checking overlaps for volume Slice164:0 (G4Box) ... Checking overlaps for volume Slice165:0 (G4Box) ... Checking overlaps for volume Slice166:0 (G4Box) ... Checking overlaps for volume Slice167:0 (G4Box) ... Checking overlaps for volume Slice168:0 (G4Box) ... Checking overlaps for volume Slice169:0 (G4Box) ... Checking overlaps for volume Slice170:0 (G4Box) ... Checking overlaps for volume Slice171:0 (G4Box) ... Checking overlaps for volume Slice172:0 (G4Box) ... Checking overlaps for volume Slice173:0 (G4Box) ... Checking overlaps for volume Slice174:0 (G4Box) ... Checking overlaps for volume Slice175:0 (G4Box) ... Checking overlaps for volume Slice176:0 (G4Box) ... Checking overlaps for volume Slice177:0 (G4Box) ... Checking overlaps for volume Slice178:0 (G4Box) ... Checking overlaps for volume Slice179:0 (G4Box) ... Checking overlaps for volume Slice180:0 (G4Box) ... Checking overlaps for volume Slice181:0 (G4Box) ... Checking overlaps for volume Slice182:0 (G4Box) ... Checking overlaps for volume Slice183:0 (G4Box) ... Checking overlaps for volume Slice184:0 (G4Box) ... Checking overlaps for volume Slice185:0 (G4Box) ... Checking overlaps for volume Slice186:0 (G4Box) ... Checking overlaps for volume Slice187:0 (G4Box) ... Checking overlaps for volume Slice188:0 (G4Box) ... Checking overlaps for volume Slice189:0 (G4Box) ... Checking overlaps for volume Slice190:0 (G4Box) ... Checking overlaps for volume Slice191:0 (G4Box) ... Checking overlaps for volume Slice192:0 (G4Box) ... Checking overlaps for volume Slice193:0 (G4Box) ... Checking overlaps for volume Slice194:0 (G4Box) ... Checking overlaps for volume Slice195:0 (G4Box) ... Checking overlaps for volume Slice196:0 (G4Box) ... Checking overlaps for volume Slice197:0 (G4Box) ... Checking overlaps for volume Slice198:0 (G4Box) ... Checking overlaps for volume Slice199:0 (G4Box) ... Checking overlaps for volume Slice200:0 (G4Box) ... Checking overlaps for volume Slice201:0 (G4Box) ... Checking overlaps for volume Slice202:0 (G4Box) ... Checking overlaps for volume Slice203:0 (G4Box) ... Checking overlaps for volume Slice204:0 (G4Box) ... Checking overlaps for volume Slice205:0 (G4Box) ... Checking overlaps for volume Slice206:0 (G4Box) ... Checking overlaps for volume Slice207:0 (G4Box) ... Checking overlaps for volume Slice208:0 (G4Box) ... Checking overlaps for volume Slice209:0 (G4Box) ... Checking overlaps for volume Slice210:0 (G4Box) ... Checking overlaps for volume Slice211:0 (G4Box) ... Checking overlaps for volume Slice212:0 (G4Box) ... Checking overlaps for volume Slice213:0 (G4Box) ... Checking overlaps for volume Slice214:0 (G4Box) ... Checking overlaps for volume Slice215:0 (G4Box) ... Checking overlaps for volume Slice216:0 (G4Box) ... Checking overlaps for volume Slice217:0 (G4Box) ... Checking overlaps for volume Slice218:0 (G4Box) ... Checking overlaps for volume Slice219:0 (G4Box) ... Checking overlaps for volume Slice220:0 (G4Box) ... Checking overlaps for volume Slice221:0 (G4Box) ... Checking overlaps for volume Slice222:0 (G4Box) ... Checking overlaps for volume Slice223:0 (G4Box) ... Checking overlaps for volume Slice224:0 (G4Box) ... Checking overlaps for volume Slice225:0 (G4Box) ... Checking overlaps for volume Slice226:0 (G4Box) ... Checking overlaps for volume Slice227:0 (G4Box) ... Checking overlaps for volume Slice228:0 (G4Box) ... Checking overlaps for volume Slice229:0 (G4Box) ... Checking overlaps for volume Slice230:0 (G4Box) ... Checking overlaps for volume Slice231:0 (G4Box) ... Checking overlaps for volume Slice232:0 (G4Box) ... Checking overlaps for volume Slice233:0 (G4Box) ... Checking overlaps for volume Slice234:0 (G4Box) ... Checking overlaps for volume Slice235:0 (G4Box) ... Checking overlaps for volume Slice236:0 (G4Box) ... Checking overlaps for volume Slice237:0 (G4Box) ... Checking overlaps for volume Slice238:0 (G4Box) ... Checking overlapsBLCMDbox::Construct Slice239 parent= relZ=88.5 globZ=238.5
+	zmin=238.0 zmax=239.0
+BLCMDbox::Construct Slice240 parent= relZ=89.5 globZ=239.5
+	zmin=239.0 zmax=240.0
+BLCMDbox::Construct Slice241 parent= relZ=90.5 globZ=240.5
+	zmin=240.0 zmax=241.0
+BLCMDbox::Construct Slice242 parent= relZ=91.5 globZ=241.5
+	zmin=241.0 zmax=242.0
+BLCMDbox::Construct Slice243 parent= relZ=92.5 globZ=242.5
+	zmin=242.0 zmax=243.0
+BLCMDbox::Construct Slice244 parent= relZ=93.5 globZ=243.5
+	zmin=243.0 zmax=244.0
+BLCMDbox::Construct Slice245 parent= relZ=94.5 globZ=244.5
+	zmin=244.0 zmax=245.0
+BLCMDbox::Construct Slice246 parent= relZ=95.5 globZ=245.5
+	zmin=245.0 zmax=246.0
+BLCMDbox::Construct Slice247 parent= relZ=96.5 globZ=246.5
+	zmin=246.0 zmax=247.0
+BLCMDbox::Construct Slice248 parent= relZ=97.5 globZ=247.5
+	zmin=247.0 zmax=248.0
+BLCMDbox::Construct Slice249 parent= relZ=98.5 globZ=248.5
+	zmin=248.0 zmax=249.0
+BLCMDbox::Construct Slice250 parent= relZ=99.5 globZ=249.5
+	zmin=249.0 zmax=250.0
+BLCMDbox::Construct Slice251 parent= relZ=100.5 globZ=250.5
+	zmin=250.0 zmax=251.0
+BLCMDbox::Construct Slice252 parent= relZ=101.5 globZ=251.5
+	zmin=251.0 zmax=252.0
+BLCMDbox::Construct Slice253 parent= relZ=102.5 globZ=252.5
+	zmin=252.0 zmax=253.0
+BLCMDbox::Construct Slice254 parent= relZ=103.5 globZ=253.5
+	zmin=253.0 zmax=254.0
+BLCMDbox::Construct Slice255 parent= relZ=104.5 globZ=254.5
+	zmin=254.0 zmax=255.0
+BLCMDbox::Construct Slice256 parent= relZ=105.5 globZ=255.5
+	zmin=255.0 zmax=256.0
+BLCMDbox::Construct Slice257 parent= relZ=106.5 globZ=256.5
+	zmin=256.0 zmax=257.0
+BLCMDbox::Construct Slice258 parent= relZ=107.5 globZ=257.5
+	zmin=257.0 zmax=258.0
+BLCMDbox::Construct Slice259 parent= relZ=108.5 globZ=258.5
+	zmin=258.0 zmax=259.0
+BLCMDbox::Construct Slice260 parent= relZ=109.5 globZ=259.5
+	zmin=259.0 zmax=260.0
+BLCMDbox::Construct Slice261 parent= relZ=110.5 globZ=260.5
+	zmin=260.0 zmax=261.0
+BLCMDbox::Construct Slice262 parent= relZ=111.5 globZ=261.5
+	zmin=261.0 zmax=262.0
+BLCMDbox::Construct Slice263 parent= relZ=112.5 globZ=262.5
+	zmin=262.0 zmax=263.0
+BLCMDbox::Construct Slice264 parent= relZ=113.5 globZ=263.5
+	zmin=263.0 zmax=264.0
+BLCMDbox::Construct Slice265 parent= relZ=114.5 globZ=264.5
+	zmin=264.0 zmax=265.0
+BLCMDbox::Construct Slice266 parent= relZ=115.5 globZ=265.5
+	zmin=265.0 zmax=266.0
+BLCMDbox::Construct Slice267 parent= relZ=116.5 globZ=266.5
+	zmin=266.0 zmax=267.0
+BLCMDbox::Construct Slice268 parent= relZ=117.5 globZ=267.5
+	zmin=267.0 zmax=268.0
+BLCMDbox::Construct Slice269 parent= relZ=118.5 globZ=268.5
+	zmin=268.0 zmax=269.0
+BLCMDbox::Construct Slice270 parent= relZ=119.5 globZ=269.5
+	zmin=269.0 zmax=270.0
+BLCMDbox::Construct Slice271 parent= relZ=120.5 globZ=270.5
+	zmin=270.0 zmax=271.0
+BLCMDbox::Construct Slice272 parent= relZ=121.5 globZ=271.5
+	zmin=271.0 zmax=272.0
+BLCMDbox::Construct Slice273 parent= relZ=122.5 globZ=272.5
+	zmin=272.0 zmax=273.0
+BLCMDbox::Construct Slice274 parent= relZ=123.5 globZ=273.5
+	zmin=273.0 zmax=274.0
+BLCMDbox::Construct Slice275 parent= relZ=124.5 globZ=274.5
+	zmin=274.0 zmax=275.0
+BLCMDbox::Construct Slice276 parent= relZ=125.5 globZ=275.5
+	zmin=275.0 zmax=276.0
+BLCMDbox::Construct Slice277 parent= relZ=126.5 globZ=276.5
+	zmin=276.0 zmax=277.0
+BLCMDbox::Construct Slice278 parent= relZ=127.5 globZ=277.5
+	zmin=277.0 zmax=278.0
+BLCMDbox::Construct Slice279 parent= relZ=128.5 globZ=278.5
+	zmin=278.0 zmax=279.0
+BLCMDbox::Construct Slice280 parent= relZ=129.5 globZ=279.5
+	zmin=279.0 zmax=280.0
+BLCMDbox::Construct Slice281 parent= relZ=130.5 globZ=280.5
+	zmin=280.0 zmax=281.0
+BLCMDbox::Construct Slice282 parent= relZ=131.5 globZ=281.5
+	zmin=281.0 zmax=282.0
+BLCMDbox::Construct Slice283 parent= relZ=132.5 globZ=282.5
+	zmin=282.0 zmax=283.0
+BLCMDbox::Construct Slice284 parent= relZ=133.5 globZ=283.5
+	zmin=283.0 zmax=284.0
+BLCMDbox::Construct Slice285 parent= relZ=134.5 globZ=284.5
+	zmin=284.0 zmax=285.0
+BLCMDbox::Construct Slice286 parent= relZ=135.5 globZ=285.5
+	zmin=285.0 zmax=286.0
+BLCMDbox::Construct Slice287 parent= relZ=136.5 globZ=286.5
+	zmin=286.0 zmax=287.0
+BLCMDbox::Construct Slice288 parent= relZ=137.5 globZ=287.5
+	zmin=287.0 zmax=288.0
+BLCMDbox::Construct Slice289 parent= relZ=138.5 globZ=288.5
+	zmin=288.0 zmax=289.0
+BLCMDbox::Construct Slice290 parent= relZ=139.5 globZ=289.5
+	zmin=289.0 zmax=290.0
+BLCMDbox::Construct Slice291 parent= relZ=140.5 globZ=290.5
+	zmin=290.0 zmax=291.0
+BLCMDbox::Construct Slice292 parent= relZ=141.5 globZ=291.5
+	zmin=291.0 zmax=292.0
+BLCMDbox::Construct Slice293 parent= relZ=142.5 globZ=292.5
+	zmin=292.0 zmax=293.0
+BLCMDbox::Construct Slice294 parent= relZ=143.5 globZ=293.5
+	zmin=293.0 zmax=294.0
+BLCMDbox::Construct Slice295 parent= relZ=144.5 globZ=294.5
+	zmin=294.0 zmax=295.0
+BLCMDbox::Construct Slice296 parent= relZ=145.5 globZ=295.5
+	zmin=295.0 zmax=296.0
+BLCMDbox::Construct Slice297 parent= relZ=146.5 globZ=296.5
+	zmin=296.0 zmax=297.0
+BLCMDbox::Construct Slice298 parent= relZ=147.5 globZ=297.5
+	zmin=297.0 zmax=298.0
+BLCMDbox::Construct Slice299 parent= relZ=148.5 globZ=298.5
+	zmin=298.0 zmax=299.0
+**************************************************************************
+*** G4Exception: GeomVol1002
+***    severity: Warning
+***   issued by: G4PVPlacement::CheckOverlaps()
+*** description: Overlap with mother volume !
+          Overlap is detected for volume Slice300:0 (G4Box) with its mother volume TargetGroupLogVol (G4Tubs)
+          protrusion at mother local point (-98.6338,-99.4813,150) by 4.00898 cm  (max of 239 cases)
+NOTE: Reached maximum fixed number -1- of overlaps reports for this volume !
+***    printing: every 100-th occurrence
+**************************************************************************
+BLCMDbox::Construct Slice300 parent= relZ=149.5 globZ=299.5
+	zmin=299.0 zmax=300.0
+ for volume Slice239:0 (G4Box) ... Checking overlaps for volume Slice240:0 (G4Box) ... Checking overlaps for volume Slice241:0 (G4Box) ... Checking overlaps for volume Slice242:0 (G4Box) ... Checking overlaps for volume Slice243:0 (G4Box) ... Checking overlaps for volume Slice244:0 (G4Box) ... Checking overlaps for volume Slice245:0 (G4Box) ... Checking overlaps for volume Slice246:0 (G4Box) ... Checking overlaps for volume Slice247:0 (G4Box) ... Checking overlaps for volume Slice248:0 (G4Box) ... Checking overlaps for volume Slice249:0 (G4Box) ... Checking overlaps for volume Slice250:0 (G4Box) ... Checking overlaps for volume Slice251:0 (G4Box) ... Checking overlaps for volume Slice252:0 (G4Box) ... Checking overlaps for volume Slice253:0 (G4Box) ... Checking overlaps for volume Slice254:0 (G4Box) ... Checking overlaps for volume Slice255:0 (G4Box) ... Checking overlaps for volume Slice256:0 (G4Box) ... Checking overlaps for volume Slice257:0 (G4Box) ... Checking overlaps for volume Slice258:0 (G4Box) ... Checking overlaps for volume Slice259:0 (G4Box) ... Checking overlaps for volume Slice260:0 (G4Box) ... Checking overlaps for volume Slice261:0 (G4Box) ... Checking overlaps for volume Slice262:0 (G4Box) ... Checking overlaps for volume Slice263:0 (G4Box) ... Checking overlaps for volume Slice264:0 (G4Box) ... Checking overlaps for volume Slice265:0 (G4Box) ... Checking overlaps for volume Slice266:0 (G4Box) ... Checking overlaps for volume Slice267:0 (G4Box) ... Checking overlaps for volume Slice268:0 (G4Box) ... Checking overlaps for volume Slice269:0 (G4Box) ... Checking overlaps for volume Slice270:0 (G4Box) ... Checking overlaps for volume Slice271:0 (G4Box) ... Checking overlaps for volume Slice272:0 (G4Box) ... Checking overlaps for volume Slice273:0 (G4Box) ... Checking overlaps for volume Slice274:0 (G4Box) ... Checking overlaps for volume Slice275:0 (G4Box) ... Checking overlaps for volume Slice276:0 (G4Box) ... Checking overlaps for volume Slice277:0 (G4Box) ... Checking overlaps for volume Slice278:0 (G4Box) ... Checking overlaps for volume Slice279:0 (G4Box) ... Checking overlaps for volume Slice280:0 (G4Box) ... Checking overlaps for volume Slice281:0 (G4Box) ... Checking overlaps for volume Slice282:0 (G4Box) ... Checking overlaps for volume Slice283:0 (G4Box) ... Checking overlaps for volume Slice284:0 (G4Box) ... Checking overlaps for volume Slice285:0 (G4Box) ... Checking overlaps for volume Slice286:0 (G4Box) ... Checking overlaps for volume Slice287:0 (G4Box) ... Checking overlaps for volume Slice288:0 (G4Box) ... Checking overlaps for volume Slice289:0 (G4Box) ... Checking overlaps for volume Slice290:0 (G4Box) ... Checking overlaps for volume Slice291:0 (G4Box) ... Checking overlaps for volume Slice292:0 (G4Box) ... Checking overlaps for volume Slice293:0 (G4Box) ... Checking overlaps for volume Slice294:0 (G4Box) ... Checking overlaps for volume Slice295:0 (G4Box) ... Checking overlaps for volume Slice296:0 (G4Box) ... Checking overlaps for volume Slice297:0 (G4Box) ... Checking overlaps for volume Slice298:0 (G4Box) ... Checking overlaps for volume Slice299:0 (G4Box) ... Checking overlaps for volume Slice300:0 (G4Box) ... G4PhysicsListHelper::RegisterProcess :RadioactiveDecay for GenericIon with  type/subtype =6/210  is has same subType as RadioactiveDecay for GenericIon
+It will not be added !!
+**************************************************************************
+*** G4Exception: Run0111
+***    severity: Warning
+***   issued by: G4PhysicsListHelper::RegisterProcess
+*** description: Duplication of processes
+**************************************************************************
+
+Geometry test nPoints=100 tolerance=0.002 mm:
+Testing geometry for children of group 'World':
+Testing geometry for children of group 'TargetGroup':
+Total geometry errors = 0  0 seconds
+
+
+Physical volumes for totalenergy (* = totaled):
+World
+    TargetGroup
+        Slice1 *
+        Slice2 *
+        Slice3 *
+        Slice4 *
+        Slice5 *
+        Slice6 *
+        Slice7 *
+        Slice8 *
+        Slice9 *
+        Slice10 *
+        Slice11 *
+        Slice12 *
+        Slice13 *
+        Slice14 *
+        Slice15 *
+        Slice16 *
+        Slice17 *
+        Slice18 *
+        Slice19 *
+        Slice20 *
+        Slice21 *
+        Slice22 *
+        Slice23 *
+        Slice24 *
+        Slice25 *
+        Slice26 *
+        Slice27 *
+        Slice28 *
+        Slice29 *
+        Slice30 *
+        Slice31 *
+        Slice32 *
+        Slice33 *
+        Slice34 *
+        Slice35 *
+        Slice36 *
+        Slice37 *
+        Slice38 *
+        Slice39 *
+        Slice40 *
+        Slice41 *
+        Slice42 *
+        Slice43 *
+        Slice44 *
+        Slice45 *
+        Slice46 *
+        Slice47 *
+        Slice48 *
+        Slice49 *
+        Slice50 *
+        Slice51 *
+        Slice52 *
+        Slice53 *
+        Slice54 *
+        Slice55 *
+        Slice56 *
+        Slice57 *
+        Slice58 *
+        Slice59 *
+        Slice60 *
+        Slice61 *
+        Slice62 *
+        Slice63 *
+        Slice64 *
+        Slice65 *
+        Slice66 *
+        Slice67 *
+        Slice68 *
+        Slice69 *
+        Slice70 *
+        Slice71 *
+        Slice72 *
+        Slice73 *
+        Slice74 *
+        Slice75 *
+        Slice76 *
+        Slice77 *
+        Slice78 *
+        Slice79 *
+        Slice80 *
+        Slice81 *
+        Slice82 *
+        Slice83 *
+        Slice84 *
+        Slice85 *
+        Slice86 *
+        Slice87 *
+        Slice88 *
+        Slice89 *
+        Slice90 *
+        Slice91 *
+        Slice92 *
+        Slice93 *
+        Slice94 *
+        Slice95 *
+        Slice96 *
+        Slice97 *
+        Slice98 *
+        Slice99 *
+        Slice100 *
+        Slice101 *
+        Slice102 *
+        Slice103 *
+        Slice104 *
+        Slice105 *
+        Slice106 *
+        Slice107 *
+        Slice108 *
+        Slice109 *
+        Slice110 *
+        Slice111 *
+        Slice112 *
+        Slice113 *
+        Slice114 *
+        Slice115 *
+        Slice116 *
+        Slice117 *
+        Slice118 *
+        Slice119 *
+        Slice120 *
+        Slice121 *
+        Slice122 *
+        Slice123 *
+        Slice124 *
+        Slice125 *
+        Slice126 *
+        Slice127 *
+        Slice128 *
+        Slice129 *
+        Slice130 *
+        Slice131 *
+        Slice132 *
+        Slice133 *
+        Slice134 *
+        Slice135 *
+        Slice136 *
+        Slice137 *
+        Slice138 *
+        Slice139 *
+        Slice140 *
+        Slice141 *
+        Slice142 *
+        Slice143 *
+        Slice144 *
+        Slice145 *
+        Slice146 *
+        Slice147 *
+        Slice148 *
+        Slice149 *
+        Slice150 *
+        Slice151 *
+        Slice152 *
+        Slice153 *
+        Slice154 *
+        Slice155 *
+        Slice156 *
+        Slice157 *
+        Slice158 *
+        Slice159 *
+        Slice160 *
+        Slice161 *
+        Slice162 *
+        Slice163 *
+        Slice164 *
+        Slice165 *
+        Slice166 *
+        Slice167 *
+        Slice168 *
+        Slice169 *
+        Slice170 *
+        Slice171 *
+        Slice172 *
+        Slice173 *
+        Slice174 *
+        Slice175 *
+        Slice176 *
+        Slice177 *
+        Slice178 *
+        Slice179 *
+        Slice180 *
+        Slice181 *
+        Slice182 *
+        Slice183 *
+        Slice184 *
+        Slice185 *
+        Slice186 *
+        Slice187 *
+        Slice188 *
+        Slice189 *
+        Slice190 *
+        Slice191 *
+        Slice192 *
+        Slice193 *
+        Slice194 *
+        Slice195 *
+        Slice196 *
+        Slice197 *
+        Slice198 *
+        Slice199 *
+        Slice200 *
+        Slice201 *
+        Slice202 *
+        Slice203 *
+        Slice204 *
+        Slice205 *
+        Slice206 *
+        Slice207 *
+        Slice208 *
+        Slice209 *
+        Slice210 *
+        Slice211 *
+        Slice212 *
+        Slice213 *
+        Slice214 *
+        Slice215 *
+        Slice216 *
+        Slice217 *
+        Slice218 *
+        Slice219 *
+        Slice220 *
+        Slice221 *
+        Slice222 *
+        Slice223 *
+        Slice224 *
+        Slice225 *
+        Slice226 *
+        Slice227 *
+        Slice228 *
+        Slice229 *
+        Slice230 *
+        Slice231 *
+        Slice232 *
+        Slice233 *
+        Slice234 *
+        Slice235 *
+        Slice236 *
+        Slice237 *
+        Slice238 *
+        Slice239 *
+        Slice240 *
+        Slice241 *
+        Slice242 *
+        Slice243 *
+        Slice244 *
+        Slice245 *
+        Slice246 *
+        Slice247 *
+        Slice248 *
+        Slice249 *
+        Slice250 *
+        Slice251 *
+        Slice252 *
+        Slice253 *
+        Slice254 *
+        Slice255 *
+        Slice256 *
+        Slice257 *
+        Slice258 *
+        Slice259 *
+        Slice260 *
+        Slice261 *
+        Slice262 *
+        Slice263 *
+        Slice264 *
+        Slice265 *
+        Slice266 *
+        Slice267 *
+        Slice268 *
+        Slice269 *
+        Slice270 *
+        Slice271 *
+        Slice272 *
+        Slice273 *
+        Slice274 *
+        Slice275 *
+        Slice276 *
+        Slice277 *
+        Slice278 *
+        Slice279 *
+        Slice280 *
+        Slice281 *
+        Slice282 *
+        Slice283 *
+        Slice284 *
+        Slice285 *
+        Slice286 *
+        Slice287 *
+        Slice288 *
+        Slice289 *
+        Slice290 *
+        Slice291 *
+        Slice292 *
+        Slice293 *
+        Slice294 *
+        Slice295 *
+        Slice296 *
+        Slice297 *
+        Slice298 *
+        Slice299 *
+        Slice300 *
+================== Prepare Tracking Beam ==================
+Stochastic processes are enabled.
+================== Begin Tracking Beam ===============
+Event 1 Completed  1 events  realTime=1 sec  1.0 ev/sec
+Event 2 Completed  2 events  realTime=1 sec  2.0 ev/sec
+Event 3 Completed  3 events  realTime=1 sec  3.0 ev/sec
+Event 4 Completed  4 events  realTime=1 sec  4.0 ev/sec
+Event 5 Completed  5 events  realTime=1 sec  5.0 ev/sec
+Event 6 Completed  6 events  realTime=1 sec  6.0 ev/sec
+Event 7 Completed  7 events  realTime=1 sec  7.0 ev/sec
+Event 8 Completed  8 events  realTime=1 sec  8.0 ev/sec
+Event 9 Completed  9 events  realTime=1 sec  9.0 ev/sec
+Event 10 Completed  10 events  realTime=1 sec  10.0 ev/sec
+Event 20 Completed  20 events  realTime=1 sec  20.0 ev/sec
+Event 30 Completed  30 events  realTime=1 sec  30.0 ev/sec
+Event 40 Completed  40 events  realTime=1 sec  40.0 ev/sec
+Event 50 Completed  50 events  realTime=1 sec  50.0 ev/sec
+Event 60 Completed  60 events  realTime=1 sec  60.0 ev/sec
+Event 70 Completed  70 events  realTime=1 sec  70.0 ev/sec
+Event 80 Completed  80 events  realTime=1 sec  80.0 ev/sec
+Event 90 Completed  90 events  realTime=1 sec  90.0 ev/sec
+Event 100 Completed  100 events  realTime=1 sec  100.0 ev/sec
+Event 200 Completed  200 events  realTime=1 sec  200.0 ev/sec
+Event 300 Completed  300 events  realTime=1 sec  300.0 ev/sec
+Event 400 Completed  400 events  realTime=1 sec  400.0 ev/sec
+Event 500 Completed  500 events  realTime=1 sec  500.0 ev/sec
+Event 600 Completed  600 events  realTime=1 sec  600.0 ev/sec
+Event 700 Completed  700 events  realTime=2 sec  350.0 ev/sec
+Event 800 Completed  800 events  realTime=4 sec  200.0 ev/sec
+Event 900 Completed  900 events  realTime=5 sec  180.0 ev/sec
+Event 1000 Completed  1000 events  realTime=6 sec  166.7 ev/sec
+Event 2000 Completed  2000 events  realTime=22 sec  90.9 ev/sec
+Event 3000 Completed  3000 events  realTime=36 sec  83.3 ev/sec
+Event 4000 Completed  4000 events  realTime=43 sec  93.0 ev/sec
+Event 5000 Completed  5000 events  realTime=48 sec  104.2 ev/sec
+Event 6000 Completed  6000 events  realTime=62 sec  96.8 ev/sec
+Event 7000 Completed  7000 events  realTime=77 sec  90.9 ev/sec
+Event 8000 Completed  8000 events  realTime=92 sec  87.0 ev/sec
+Event 9000 Completed  9000 events  realTime=105 sec  85.7 ev/sec
+Event 10000 Completed  10000 events  realTime=120 sec  83.3 ev/sec
+Event 11000 Completed  11000 events  realTime=134 sec  82.1 ev/sec
+Event 12000 Completed  12000 events  realTime=148 sec  81.1 ev/sec
+Event 13000 Completed  13000 events  realTime=151 sec  86.1 ev/sec
+Event 14000 Completed  14000 events  realTime=164 sec  85.4 ev/sec
+Event 15000 Completed  15000 events  realTime=178 sec  84.3 ev/sec
+Event 16000 Completed  16000 events  realTime=192 sec  83.3 ev/sec
+Event 17000 Completed  17000 events  realTime=207 sec  82.1 ev/sec
+Event 18000 Completed  18000 events  realTime=221 sec  81.4 ev/sec
+Event 19000 Completed  19000 events  realTime=235 sec  80.9 ev/sec
+Event 20000 Completed  20000 events  realTime=250 sec  80.0 ev/sec
+Event 21000 Completed  21000 events  realTime=264 sec  79.5 ev/sec
+Event 22000 Completed  22000 events  realTime=278 sec  79.1 ev/sec
+Event 23000 Completed  23000 events  realTime=291 sec  79.0 ev/sec
+Event 24000 Completed  24000 events  realTime=305 sec  78.7 ev/sec
+Event 25000 Completed  25000 events  realTime=319 sec  78.4 ev/sec
+Event 26000 Completed  26000 events  realTime=333 sec  78.1 ev/sec
+Event 27000 Completed  27000 events  realTime=347 sec  77.8 ev/sec
+Event 28000 Completed  28000 events  realTime=361 sec  77.6 ev/sec
+Event 29000 Completed  29000 events  realTime=375 sec  77.3 ev/sec
+Event 30000 Completed  30000 events  realTime=388 sec  77.3 ev/sec
+Event 31000 Completed  31000 events  realTime=401 sec  77.3 ev/sec
+Event 32000 Completed  32000 events  realTime=414 sec  77.3 ev/sec
+Event 33000 Completed  33000 events  realTime=428 sec  77.1 ev/sec
+Event 34000 Completed  34000 events  realTime=442 sec  76.9 ev/sec
+Event 35000 Completed  35000 events  realTime=456 sec  76.8 ev/sec
+Event 36000 Completed  36000 events  realTime=470 sec  76.6 ev/sec
+Event 37000 Completed  37000 events  realTime=483 sec  76.6 ev/sec
+Event 38000 Completed  38000 events  realTime=497 sec  76.5 ev/sec
+Event 39000 Completed  39000 events  realTime=511 sec  76.3 ev/sec
+Event 40000 Completed  40000 events  realTime=524 sec  76.3 ev/sec
+Event 41000 Completed  41000 events  realTime=537 sec  76.4 ev/sec
+Event 42000 Completed  42000 events  realTime=551 sec  76.2 ev/sec
+Event 43000 Completed  43000 events  realTime=566 sec  76.0 ev/sec
+Event 44000 Completed  44000 events  realTime=579 sec  76.0 ev/sec
+Event 45000 Completed  45000 events  realTime=581 sec  77.5 ev/sec
+Event 46000 Completed  46000 events  realTime=586 sec  78.5 ev/sec
+Event 47000 Completed  47000 events  realTime=599 sec  78.5 ev/sec
+Event 48000 Completed  48000 events  realTime=614 sec  78.2 ev/sec
+Event 49000 Completed  49000 events  realTime=628 sec  78.0 ev/sec
+Event 50000 Completed  50000 events  realTime=641 sec  78.0 ev/sec
+Event 51000 Completed  51000 events  realTime=654 sec  78.0 ev/sec
+Event 52000 Completed  52000 events  realTime=668 sec  77.8 ev/sec
+Event 53000 Completed  53000 events  realTime=682 sec  77.7 ev/sec
+Event 54000 Completed  54000 events  realTime=695 sec  77.7 ev/sec
+Event 55000 Completed  55000 events  realTime=709 sec  77.6 ev/sec
+Event 56000 Completed  56000 events  realTime=722 sec  77.6 ev/sec
+Event 57000 Completed  57000 events  realTime=735 sec  77.6 ev/sec
+Event 58000 Completed  58000 events  realTime=748 sec  77.5 ev/sec
+Event 59000 Completed  59000 events  realTime=761 sec  77.5 ev/sec
+Event 60000 Completed  60000 events  realTime=774 sec  77.5 ev/sec
+Event 61000 Completed  61000 events  realTime=787 sec  77.5 ev/sec
+Event 62000 Completed  62000 events  realTime=800 sec  77.5 ev/sec
+Event 63000 Completed  63000 events  realTime=813 sec  77.5 ev/sec
+Event 64000 Completed  64000 events  realTime=826 sec  77.5 ev/sec
+Event 65000 Completed  65000 events  realTime=839 sec  77.5 ev/sec
+Event 66000 Completed  66000 events  realTime=853 sec  77.4 ev/sec
+Event 67000 Completed  67000 events  realTime=867 sec  77.3 ev/sec
+Event 68000 Completed  68000 events  realTime=877 sec  77.5 ev/sec
+Event 69000 Completed  69000 events  realTime=886 sec  77.9 ev/sec
+Event 70000 Completed  70000 events  realTime=899 sec  77.9 ev/sec
+Event 71000 Completed  71000 events  realTime=913 sec  77.8 ev/sec
+Event 72000 Completed  72000 events  realTime=927 sec  77.7 ev/sec
+Event 73000 Completed  73000 events  realTime=940 sec  77.7 ev/sec
+Event 74000 Completed  74000 events  realTime=954 sec  77.6 ev/sec
+Event 75000 Completed  75000 events  realTime=967 sec  77.6 ev/sec
+Event 76000 Completed  76000 events  realTime=980 sec  77.6 ev/sec
+Event 77000 Completed  77000 events  realTime=993 sec  77.5 ev/sec
+Event 78000 Completed  78000 events  realTime=1007 sec  77.5 ev/sec
+Event 79000 Completed  79000 events  realTime=1020 sec  77.5 ev/sec
+Event 80000 Completed  80000 events  realTime=1034 sec  77.4 ev/sec
+Event 81000 Completed  81000 events  realTime=1040 sec  77.9 ev/sec
+Event 82000 Completed  82000 events  realTime=1043 sec  78.6 ev/sec
+Event 83000 Completed  83000 events  realTime=1055 sec  78.7 ev/sec
+Event 84000 Completed  84000 events  realTime=1069 sec  78.6 ev/sec
+Event 85000 Completed  85000 events  realTime=1083 sec  78.5 ev/sec
+Event 86000 Completed  86000 events  realTime=1097 sec  78.4 ev/sec
+Event 87000 Completed  87000 events  realTime=1111 sec  78.3 ev/sec
+Event 88000 Completed  88000 events  realTime=1124 sec  78.3 ev/sec
+Event 89000 Completed  89000 events  realTime=1138 sec  78.2 ev/sec
+Event 90000 Completed  90000 events  realTime=1152 sec  78.1 ev/sec
+Event 91000 Completed  91000 events  realTime=1166 sec  78.0 ev/sec
+Event 92000 Completed  92000 events  realTime=1181 sec  77.9 ev/sec
+Event 93000 Completed  93000 events  realTime=1195 sec  77.8 ev/sec
+Event 94000 Completed  94000 events  realTime=1210 sec  77.7 ev/sec
+Event 95000 Completed  95000 events  realTime=1226 sec  77.5 ev/sec
+Event 96000 Completed  96000 events  realTime=1240 sec  77.4 ev/sec
+Event 97000 Completed  97000 events  realTime=1254 sec  77.4 ev/sec
+Event 98000 Completed  98000 events  realTime=1268 sec  77.3 ev/sec
+Event 99000 Completed  99000 events  realTime=1282 sec  77.2 ev/sec
+Event 100000 Completed  100000 events  realTime=1296 sec  77.2 ev/sec
+Run complete  100000 Events  1296 seconds
+totalenergy: wrote 'BraggPeak_Conc75.txt'
+
+Exceptions: 0 Fatal, 0 Events Aborted, 0 Stuck Tracks (stopped), 302 Warnings
+    300 times: GeomVol1002
+      1 times: No rename
+      1 times: Run0111
+g4beamline: simulation complete
+mplete
